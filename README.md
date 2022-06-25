@@ -1,7 +1,7 @@
 # Password Generator 
 This project is viewable at <https://cbarber1984.github.io/password-generator/>
 
-![Screenshot of password generator](./Develop/password_generator_screenshot.png)
+![Screenshot of password generator](./password_generator_screenshot.png)
 
 ## Purpose of this Project
 Create a random password generator that will use user selected criteria to generate a unique and random password.
