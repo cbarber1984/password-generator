@@ -1,5 +1,6 @@
 // Assignment code here
 function generatePassword () {
+  // function to shuffle array using the Fisher Yates algorithm
   const shuffleArray = array => {
     for (let i = array.length -1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -9,10 +10,11 @@ function generatePassword () {
     }
   }
   
+  // function to pull random item from array
   const random_items = function (arr) {
     return arr[Math.floor(Math.random() * arr.length)]
   }
-  let capitalLetters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+  const capitalLetters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
   const lowercaseLetters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
   const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
   const specialCharacters = ["!", "@", "#", "$", "%", "^", "&", "*"];
@@ -27,14 +29,13 @@ function generatePassword () {
   // define functions
   var getLowerCase = function(){
     isLowerCase = window.prompt("Would you like to include lowercase letters? YES or NO").toLowerCase();
-    console.log(isLowerCase);
-    //isLowerCase = isLowerCase.toLowerCase();
     
     if(isLowerCase === "yes" || isLowerCase === "no") {
       window.alert("You have made a valid selection.")
     } else {
       window.alert("Please make a valid selection.")
-      getLowerCase();
+      
+      getLowerCase(); // recursive call to force valid selection
     }
   }
 
@@ -44,7 +45,7 @@ function generatePassword () {
       window.alert("You have made a valid selection.")
     } else {
       window.alert("Please make a valid selection.");
-      getUppercase();
+      getUppercase(); // recursive call to force valid selection
     }
   }
 
@@ -53,10 +54,9 @@ function generatePassword () {
     
     if(passwordNumbers === "yes" || passwordNumbers === "no"){
       window.alert("You have made a valid selection.");
-      console.log(`Will password contain numbers? ${passwordNumbers}`);
     } else {
       window.alert("Please enter a valid selection.");
-      getPasswordNumbers();
+      getPasswordNumbers(); // recursive call to force valid selection
     }
   }
 
@@ -68,7 +68,7 @@ function generatePassword () {
       console.log(`Will password contain special characters? ${passwordSpecialCharacters}`);
     } else{
       window.alert(`Please make a valid selection.`);
-      getPasswordSpecial;
+      getPasswordSpecial; // recursive call to force valid selection
     }
   }
 
@@ -80,23 +80,26 @@ function generatePassword () {
       window.alert("Please enter a valid selection");
       getPasswordLength();
     }
-    console.log(`password length = ${passwordLength}`);
-    return passwordLength;
+    return passwordLength; 
   }
   
-  // code block to gather user input
+  // function calls to gather user input
   getPasswordLength();
   getLowerCase();
   getUppercase();
   getPasswordNumbers();
   getPasswordSpecial();
 
-  // revised loop to generate characters to push into password
+  // loop to complete the following tasks:
+  // * generate characters based upon user input 
+  // * push them into temporary array
+  // * shuffle the temprary array
+  // * push temporary array into results array
   for (let i=0; generatedPassword.length < passwordLength; i++) {
-    // reset loopResult array to []
+    // reset temporary array (loopResult) to empty []
     loopResult = [];
     
-    // include lowercase letters if selected
+    // push lowercase letters to temprary array if selected
     const addLowercase = function(){
       if(isLowerCase === "yes") {
         let randomLowercaseLetter = random_items(lowercaseLetters)
@@ -104,7 +107,7 @@ function generatePassword () {
         loopResult.push(randomLowercaseLetter);
       }
     }
-    // include uppercase letters if selected
+    // push uppercase letters to temprary array if selected
    const addUppercase = function (){
      if(isUppercase === "yes") {
        let randomUppercase = random_items(capitalLetters);
@@ -112,7 +115,7 @@ function generatePassword () {
        loopResult.push(randomUppercase);
       }
     }
-    // include numbers if selected
+    // push numbers to temprary array if selected
     const addNumbers = function(){
 
       if(passwordNumbers === "yes") {
@@ -121,7 +124,7 @@ function generatePassword () {
         loopResult.push(randomNumber);
       }
     }
-    // include special characters if selected
+    // push special characters to temprary array if selected
     const addSpecialCharacters = function(){
 
       if(passwordSpecialCharacters === "yes") {
@@ -137,114 +140,15 @@ function generatePassword () {
 
     shuffleArray(loopResult);
     generatedPassword = generatedPassword.concat(loopResult);
-    console.log(`loopResult = ${loopResult}`);
-    console.log(`generated Password length = ${generatedPassword.length}`)
-    console.log(`generated Password = ${generatedPassword}`)
-    debugger;
   }
 
+  // turn password array into text string without commas
   let result = generatedPassword.join('');
+  
+  // remove extra end characters
   result = result.slice(0, passwordLength);
-  console.log(`result is ${result}`);
   return result;
 }
-  
-  
-  // original code below this point
-  
-//   do {
-//   let loopResult = [];
-//   var getLowerCase = function(){
-//     var isLowerCase = window.prompt("Would you like to include lowercase letters? YES or NO");
-//     isLowerCase = isLowerCase.toLowerCase();
-    
-//     if(isLowerCase === "yes" || isLowerCase === "no") {
-//       window.alert("You have made a valid selection.")
-//     } else {
-//       window.alert("Please make a valid selection.")
-//       getLowerCase();
-//     }
-//     if(isLowerCase === "yes") {
-//       let randomLowercaseLetter = random_items(lowercaseLetters)
-//       console.log(randomLowercaseLetter);
-//       loopResult.push(randomLowercaseLetter);
-//     }
-//   }
-
-//   getLowerCase();
-
-//   var getUppercase = function(){
-//     let isUppercase = window.prompt("Would you like to include UPPERCASE letters? YES or NO");
-//     isUppercase = isUppercase.toLowerCase();
-//     if (isUppercase === "yes" || isUppercase === "no") {
-//       window.alert("You have made a valid selection.")
-//     } else {
-//       window.alert("Please make a valid selection.");
-//       getUppercase();
-//     }
-
-//     if(isUppercase === "yes") {
-//       let randomUppercase = random_items(capitalLetters);
-//       console.log(randomUppercase);
-//       loopResult.push(randomUppercase);
-//     }
-//   }
-
-//   getUppercase();
-  
-//   var getPasswordNumbers = function(){
-//     var passwordNumbers = window.prompt("Include numbers? YES or NO");
-//     passwordNumbers = passwordNumbers.toLowerCase();
-    
-//     if(passwordNumbers === "yes" || passwordNumbers === "no"){
-//       window.alert("You have made a valid selection.");
-//       console.log(`Will password contain numbers? ${passwordNumbers}`);
-//     } else {
-//       window.alert("Please enter a valid selection.");
-//       getPasswordNumbers();
-//     }
-//     if(passwordNumbers === "yes") {
-//       let randomNumber = random_items(numbers);
-//       console.log(randomNumber);
-//       loopResult.push(randomNumber);
-//     }
-//   }
-
-//   getPasswordNumbers();
-
-//   var getPasswordSpecial = function(){
-//     var passwordSpecialCharacters = window.prompt("Include special characters? YES or NO");
-//     passwordSpecialCharacters = passwordSpecialCharacters.toLowerCase();
-    
-//     if(passwordSpecialCharacters === "yes" || passwordSpecialCharacters === "no") {
-//       window.alert("You have made a valid selection.");
-//       console.log(`Will password contain special characters? ${passwordSpecialCharacters}`);
-//     } else{
-//       window.alert(`Please make a valid selection.`);
-//       getPasswordSpecial;
-//     }
-//     if(passwordSpecialCharacters === "yes") {
-//       let randomSpecial = random_items(specialCharacters);
-//       console.log(randomSpecial);
-//       loopResult.push(randomSpecial);
-//     }
-//   }
-
-//   getPasswordSpecial();
-
-//   shuffleArray(loopResult);
-//   generatedPassword = generatedPassword.concat(loopResult);
-  
-//   console.log(`loop result = ${loopResult}`);
-//   console.log(`generatedPassword = ${generatedPassword}`);
-//   console.log(`passwordLength = ${passwordLength}`);
-// }
-// while (generatedPassword.length < passwordLength);
-
-//   let result = generatedPassword.join()
-//   result = result.slice(0, passwordLength);
-//   return result;
-// }
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
